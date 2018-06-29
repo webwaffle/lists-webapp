@@ -22,12 +22,27 @@ module.exports = {
     },
     queryIncludes: function(path, listname, item) {
         var table = this.queryAll(path);
+        var result = [];
         for (var i = 0; i < table.length; i++) {
             for (var x = 0; x < table[i][listname].length; x++) {
                 if(table[i][listname][x] == item) {
-                    return true;
+                    result.push(table[i]);
                 }
             }
         }
+        return result;
+    },
+    update: function(path, key, value, newkey, newvalue) {
+        console.log('why me');
+        var table = this.queryAll(path);
+        for (var i = 0; i < table.length; i++) {
+            if(table[i].hasOwnProperty(key)) {
+                if(table[i][key] == value) {
+                    console.log('hi');
+                    table[i][newkey] = newvalue;
+                }
+            }
+        }
+        fs.writeFileSync(path, table);
     }
 }

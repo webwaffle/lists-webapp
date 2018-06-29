@@ -36,13 +36,12 @@ app.set('port', process.env.PORT || 3000);
 
 
 app.get('/home', function(req, res) {
-    var
     res.render('home/home', {
         user: {
             name: req.session.username,
             id: req.session.userid
-        },
-        lists: lists
+        }/*,
+        lists: lists*/
     });
 });
 
@@ -54,6 +53,14 @@ app.post('/create-list-process', function(req, res) {
     } else {
         res.redirect(303, '/home');
     }
+});
+app.post('/join-list-process', function(req, res) {
+    if(req.body.id) {
+        var idint = parseInt(req.body.id, 10);
+        var homec = require('./controllers/home-controller');
+        console.log(homec.join_list(idint, req.session.userid, req.session.username));
+    }
+    res.redirect(303, '/home');
 });
 
 app.get('/', function(req, res) {
@@ -70,6 +77,16 @@ app.post('/login-process', function(req, res) {
             res.render('login/wrong-pass', {user: req.body.username, pass: req.body.password});
         }
     }
+});
+app.get('/logout', function (req, res) {
+    req.session.destroy(function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.clearCookie(options.name);
+        }
+    });
+    res.render('login/logout');
 });
 
 app.get('/user-create', function(req, res) {
