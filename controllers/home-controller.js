@@ -1,8 +1,8 @@
 var editor = require('../models/edit');
 module.exports = {
-    /*get_lists: function(userid, username) {
+    get_lists: function(userid, username) {
         var table = editor.queryIncludes('data/lists.json', 'members', {id: userid, username: username});
-    },*/
+    },
     join_list: function(listid, userid, username) {
         /*Return codes:
         0-Success
@@ -23,7 +23,8 @@ module.exports = {
         }
         //console.log(orig);
         toJoin.members.push({id: userid, username: username});
-        editor.update('data/lists.json', 'members', orig, 'members', toJoin.members);
+        editor.update('data/lists.json', "id", listid, 'members', toJoin.members);
+        return 0;
     },
     create_list: function(userid, username, listname) {
         var toPut = {

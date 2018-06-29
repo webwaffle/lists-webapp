@@ -58,7 +58,7 @@ app.post('/join-list-process', function(req, res) {
     if(req.body.id) {
         var idint = parseInt(req.body.id, 10);
         var homec = require('./controllers/home-controller');
-        console.log(homec.join_list(idint, req.session.userid, req.session.username));
+        console.log(homec.join_list(idint, req.session.userid, req.session.username) + 'hi');
     }
     res.redirect(303, '/home');
 });

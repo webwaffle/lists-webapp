@@ -43,6 +43,6 @@ module.exports = {
                 }
             }
         }
-        fs.writeFileSync(path, table);
+        fs.writeFileSync(path, JSON.stringify(table, undefined, 2));
     }
 }
